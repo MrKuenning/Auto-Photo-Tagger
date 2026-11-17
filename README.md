@@ -69,57 +69,67 @@ Built with **PyQt6** and **ONNX Runtime**, Auto Photo Tagger leverages modern vi
   - Toggle preview position between Top (vertical split) or Left (horizontal split).
   - Adjustable thumbnail size slider and thumbnail toggle.
 - **Status Bar Badges**: Live ExifTool status indicator and active hardware provider badge neatly docked at the bottom right.
-- **Console-Free Launch**: Launch quietly via `Auto Photo Tagger - Run (Windows).bat` (`pythonw.exe`), with diagnostics via `Auto Photo Tagger - Run With Console (Windows).bat`, or on Linux/macOS via `Auto Photo Tagger - Run (Linux).sh`.
+- **Console-Free Launch**: Launch quietly via `Auto Tagger - Run (Win).bat` (`pythonw.exe`), with diagnostics via `Auto Tagger - Run With Console (Windows).bat`, or on Linux/macOS via `Auto Tagger - Run (Linux).sh`.
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option A: Pre-Built Windows Release (No Python Required)
+1. Download the latest release from the **GitHub Releases** page (`Auto Photo Tagger v<version>.exe` or the standalone folder zip).
+2. Extract (if zipped) and double-click `Auto Photo Tagger v<version>.exe` to launch.
+3. Built with **DirectML** support for automatic GPU acceleration on NVIDIA, AMD, and Intel GPUs out of the box.
+
+### Option B: Run from Source
+
+#### Prerequisites
 - **Windows 10 / 11 (64-bit)**, **Linux**, or **macOS** (Apple Silicon & Intel)
 - **Python 3.10+**
-- *(Optional but recommended)* NVIDIA GPU with up-to-date drivers for CUDA acceleration (Windows/Linux), or Apple Silicon for MPS acceleration (macOS). Runs on CPU if no discrete GPU is present.
+- *(Optional)* Discrete GPU — on Windows, **DirectML** (default) accelerates on NVIDIA, AMD, and Intel GPUs via DirectX 12 with no CUDA Toolkit required; on Linux, NVIDIA GPUs can use **CUDA 13**. Runs on CPU if no discrete GPU is present.
 
-### Windows
+#### Windows
 
 1. **Install**:
    Double-click or run:
    ```bat
-   "Auto Photo Tagger - Install (Windows).bat"
+   "Auto Tagger - Install (Win).bat"
    ```
-   This creates `venv/`, installs `onnxruntime-directml` (universal Windows GPU for NVIDIA/AMD/Intel by default, with optional CUDA 13 or CPU-only modes) and application dependencies from `requirements.txt`, and verifies your ONNX Runtime setup.
+   Choose your inference backend when prompted:
+   - **`[1] DirectML` (Default / Recommended)**: Universal Windows GPU acceleration (NVIDIA, AMD, Intel) via DirectX 12 (~547 MB `venv`, same speed as CUDA with no large CUDA/cuDNN downloads).
+   - **`[2] NVIDIA CUDA 13` (Bundled Runtime)**: Dedicated NVIDIA CUDA 13 + cuDNN 9 runtime (~2.23 GB `venv`).
+   - **`[3] CPU Only`**: Smallest footprint (~458 MB `venv`), works on any PC.
 2. **Run**:
-   - **Standard (No Console Window)**: Double-click `Auto Photo Tagger - Run (Windows).bat`
-   - **Debug / Diagnostic Mode**: Double-click `Auto Photo Tagger - Run With Console (Windows).bat`
+   - **Standard (No Console Window)**: Double-click `Auto Tagger - Run (Win).bat`
+   - **Debug / Diagnostic Mode**: Double-click `Auto Tagger - Run With Console (Windows).bat`
    - **Manual**: `venv\Scripts\activate` then `python app\main.py`
 3. **ExifTool**:
    - Can be installed automatically from inside the app, or downloaded from [exiftool.org](https://exiftool.org/).
 
-### Linux & macOS
+#### Linux & macOS
 
 1. **Make scripts executable** (first time only):
    ```bash
-   chmod +x "Auto Photo Tagger - Install (Linux).sh" "Auto Photo Tagger - Run (Linux).sh"
+   chmod +x "Auto Tagger - Install (Linux).sh" "Auto Tagger - Run (Linux).sh"
    ```
 2. **Install**:
    ```bash
-   ./"Auto Photo Tagger - Install (Linux).sh"
+   ./"Auto Tagger - Install (Linux).sh"
    ```
-   This creates `venv/` and installs `onnxruntime` / `onnxruntime-gpu` and application dependencies from `requirements.txt`.
+   Creates `venv/`, installs dependencies from `requirements.txt`, and lets you choose between **Bundled CUDA 13**, **System CUDA 13**, or **CPU Only** on Linux (automatically uses **CoreML / CPU** on macOS).
 3. **Install ExifTool** (required for writing metadata):
    - **macOS (Homebrew)**: `brew install exiftool`
    - **Ubuntu / Debian**: `sudo apt install libimage-exiftool-perl`
    - **Fedora / RHEL**: `sudo dnf install perl-Image-ExifTool`
 4. **Run**:
    ```bash
-   ./"Auto Photo Tagger - Run (Linux).sh"
+   ./"Auto Tagger - Run (Linux).sh"
    ```
    Or manually:
    ```bash
    source venv/bin/activate && python app/main.py
    ```
 
-### Compiling to Standalone Executable (.exe on Windows)
+#### Compiling to Standalone Executable (.exe on Windows)
 - **One-Click Compiler**: Double-click `releases\Compile EXE.bat`
 - Automatically reads `APP_VERSION` from `app/main.py` and builds into `releases/`:
   - **Option 1 (Recommended)**: Standalone folder distribution (`releases\Auto Photo Tagger v<version>\`) for instant startup and easy portability.
@@ -163,16 +173,16 @@ Built with **PyQt6** and **ONNX Runtime**, Auto Photo Tagger leverages modern vi
 
 ```
 App1 - AI - Photo Tagger/
-├── Auto Photo Tagger - Install (Windows).bat          # Windows virtualenv & dependency setup
-├── Auto Photo Tagger - Install (Linux).sh             # Linux/macOS virtualenv & dependency setup
-├── Auto Photo Tagger - Run (Windows).bat              # Windows silent launcher (pythonw app\main.py)
-├── Auto Photo Tagger - Run With Console (Windows).bat # Windows terminal launcher for debugging
-├── Auto Photo Tagger - Run (Linux).sh                 # Linux/macOS launcher (python app/main.py)
+├── Auto Tagger - Install (Win).bat            # Windows virtualenv & backend setup (DirectML/CUDA/CPU)
+├── Auto Tagger - Install (Linux).sh           # Linux/macOS virtualenv & backend setup
+├── Auto Tagger - Run (Win).bat                # Windows silent launcher (pythonw app\main.py)
+├── Auto Tagger - Run With Console (Windows).bat # Windows terminal launcher for debugging
+├── Auto Tagger - Run (Linux).sh               # Linux/macOS launcher (python app/main.py)
 ├── CHANGELOG.md                               # Version & build history
-├── requirements.txt                           # Cross-platform Python dependencies
+├── requirements.txt                           # Cross-platform core Python dependencies
 ├── app/                                       # Core Python application modules
 │   ├── main.py                                # Main PyQt6 UI and application logic
-│   ├── tagger_engine.py                       # ONNX Runtime / Florence-2 inference & model manager
+│   ├── tagger_engine.py                       # ONNX Runtime inference & model manager
 │   ├── tag_library.py                         # Approved, alias, blocked, and advanced tag manager
 │   ├── metadata_handler.py                    # ExifTool wrapper for tag reading and writing
 │   └── exiftool_installer.py                  # ExifTool discovery, verification, and auto-install

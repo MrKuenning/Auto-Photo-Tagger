@@ -16,9 +16,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Moved UI icons and graphics (`app_icon.png`, `app_icon.ico`, `check_icon.png`) from `src/` to `assets/` and updated `_resolve_asset_path()` in `app/main.py` for both source and frozen modes.
   - Kept persistent settings and tag libraries in `config/`.
 - **Cross-Platform Install & Run Scripts**:
-  - Renamed and capitalized Windows scripts with OS labels: `AI Tagger - Install (Windows).bat`, `AI Tagger - Run (Windows).bat`, and `AI Tagger - Run With Console (Windows).bat`.
-  - Added Linux and macOS shell scripts: `AI Tagger - Install (Linux-macOS).sh` (auto-detecting NVIDIA CUDA on Linux and Apple MPS/CPU on macOS) and `AI Tagger - Run (Linux-macOS).sh`.
-  - Updated `requirements.txt` for cross-platform compatibility (`onnxruntime-gpu` on Windows/Linux, `onnxruntime` on macOS, removed unused `windnd` and `customtkinter`).
+  - Renamed and capitalized Windows scripts with OS labels: `Auto Tagger - Install (Win).bat`, `Auto Tagger - Run (Win).bat`, and `Auto Tagger - Run With Console (Windows).bat`.
+  - Added Linux and macOS shell scripts: `Auto Tagger - Install (Linux).sh` (with backend selection on Linux and automatic CoreML/CPU on macOS) and `Auto Tagger - Run (Linux).sh`.
+  - Scoped `requirements.txt` to cross-platform core dependencies (removed unused `windnd` and `customtkinter`).
 - **Removed Florence-2 & PyTorch Dependencies (Major Size Reduction)**:
   - Removed `florence-2-large` from `app/tagger_engine.py` and `app/main.py` so the app focuses exclusively on structured WD v3 ONNX taggers.
   - Removed `torch`, `torchvision`, `transformers`, `timm`, and `einops` from `requirements.txt`, install scripts, and `releases/Compile EXE.bat` (~2.8–2.9 GB reduction in `venv` and compiled builds).
@@ -28,7 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **Versioned Executable Compiler (`releases/Compile EXE.bat`)**:
   - Updated `releases/Compile EXE.bat` to resolve the project root, read `APP_VERSION` dynamically from `app/main.py`, and output versioned builds directly into `releases/` (`releases/AI Photo Tagger v<version>/` or `releases/AI Photo Tagger v<version>.exe`).
 - **Documentation & Repository Hygiene**:
-  - Updated `README.md` with installation and launch instructions for Windows, Linux, and macOS, plus the updated project layout.
+  - Updated `README.md` with centered app logo, status badges, GitHub Release `.exe` instructions, DirectML details, and OS-specific install/run guides for Windows, Linux, and macOS.
   - Expanded `.gitignore` to exclude `build/`, `dist/`, `*.spec`, `releases/`, `models/`, `config/`, local ExifTool binaries, OS metadata files (`.DS_Store`, `Thumbs.db`), and temporary/log files.
 
 ---
