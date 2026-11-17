@@ -1,0 +1,60 @@
+# Project data, binaries & local notes
+Extra/
+Concept.txt
+models/
+releases/
+config/
+config/config.json
+config.json
+
+# Local ExifTool binaries
+exiftool.exe
+exiftool_files/
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# Local environment & logs
+.env
+.env.local
+.env.*.local
+*.log
+*.tmp
+*.bak
+
+# Database files
+*.db
+*.db-wal
+*.db-shm
+
+# OS-generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor & IDE directories
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

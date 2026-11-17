@@ -1,0 +1,11 @@
+# Auto Photo Tagger - Core Dependencies
+# Note: The ONNX Runtime backend (CUDA / DirectML / CPU) is installed
+# by "Auto Photo Tagger - Install (Windows).bat" or "Auto Photo Tagger - Install (Linux).sh".
+
+PyQt6>=6.5.0
+Pillow>=10.0.0
+numpy>=1.24.0
+huggingface-hub>=0.20.0
+pandas>=2.0.0
+pyexiftool>=0.5.0
+pyinstaller>=6.0.0
